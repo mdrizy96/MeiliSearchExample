@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Meilisearch;
 using System.Threading.Tasks;
 
 namespace SearchUtils.Services
 {
     public interface IMeiliSearchService
     {
-        
+        Task<Index> CreateIndex(string name);
     }
 }
