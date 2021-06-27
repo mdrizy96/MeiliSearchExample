@@ -2,6 +2,7 @@
 using SearchUtils.Constants;
 using SearchUtils.Models.Dtos;
 using SearchUtils.Services;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace MeiliSearchExample.Controllers
@@ -60,6 +61,41 @@ namespace MeiliSearchExample.Controllers
         public async Task<IActionResult> AddOrUpdateDocuments(string indexName)
         {
             var res = await _searchService.AddOrUpdateDocuments(indexName);
+            return Ok(res);
+        }
+
+        [HttpGet("indexes/{indexName}/documents")]
+        public async Task<IActionResult> GetDocumentsInIndex(string indexName)
+        {
+            var res = await _searchService.GetDocumentsInIndex(indexName);
+            return Ok(res);
+        }
+
+        [HttpGet("indexes/{indexName}/documents/{documentId}")]
+        public async Task<IActionResult> GetDocumentById(string indexName, string documentId)
+        {
+            var res = await _searchService.GetDocumentById(indexName, documentId);
+            return Ok(res);
+        }
+
+        [HttpDelete("indexes/{indexName}/documents/{documentId}")]
+        public async Task<IActionResult> DeleteOneDocument(string indexName, string documentId)
+        {
+            var res = await _searchService.DeleteOneDocument(indexName, documentId);
+            return Ok(res);
+        }
+
+        [HttpDelete("indexes/{indexName}/documents/delete-batch")]
+        public async Task<IActionResult> DeleteOneDocument(string indexName, [FromBody] List<string> documentIds)
+        {
+            var res = await _searchService.DeleteDocumentsInBatch(indexName, documentIds);
+            return Ok(res);
+        }
+
+        [HttpDelete("indexes/{indexName}/documents")]
+        public async Task<IActionResult> DeleteAllDocumentsInIndex(string indexName)
+        {
+            var res = await _searchService.DeleteAllDocumentsInIndex(indexName);
             return Ok(res);
         }
     }

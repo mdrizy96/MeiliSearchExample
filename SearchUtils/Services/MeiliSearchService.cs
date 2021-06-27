@@ -85,7 +85,7 @@ namespace SearchUtils.Services
         public async Task<Book> GetDocumentById(string indexName, string documentId)
         {
             var index = await _masterSearchClient.GetIndex(SearchConstants.BooksIndex);
-            var document = await index.GetDocument<Book>("10");
+            var document = await index.GetDocument<Book>(documentId);
             return document;
         }
 
