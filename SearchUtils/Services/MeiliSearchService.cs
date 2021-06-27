@@ -74,5 +74,40 @@ namespace SearchUtils.Services
             var update = await index.UpdateDocuments(documents);
             return update;
         }
+
+        public async Task<IEnumerable<Book>> GetDocumentsInIndex(string indexName)
+        {
+            var index = await _masterSearchClient.GetIndex(SearchConstants.BooksIndex);
+            var documents = await index.GetDocuments<Book>(new DocumentQuery { Limit = 2 });
+            return documents;
+        }
+
+        public async Task<Book> GetDocumentById(string indexName, string documentId)
+        {
+            var index = await _masterSearchClient.GetIndex(SearchConstants.BooksIndex);
+            var document = await index.GetDocument<Book>("10");
+            return document;
+        }
+
+        public async Task<UpdateStatus> DeleteOneDocument(string indexName, string documentId)
+        {
+            var index = await _masterSearchClient.GetIndex(SearchConstants.BooksIndex);
+            var res = await index.DeleteOneDocument("11");
+            return res;
+        }
+
+        public async Task<UpdateStatus> DeleteDocumentsInBatch(string indexName, List<string> documentIds)
+        {
+            var index = await _masterSearchClient.GetIndex(SearchConstants.BooksIndex);
+            var res = await index.DeleteDocuments(documentIds);
+            return res;
+        }
+
+        public async Task<UpdateStatus> DeleteAllDocumentsInIndex(string indexName)
+        {
+            var index = await _masterSearchClient.GetIndex(SearchConstants.BooksIndex);
+            var res = await index.DeleteAllDocuments();
+            return res;
+        }
     }
 }
