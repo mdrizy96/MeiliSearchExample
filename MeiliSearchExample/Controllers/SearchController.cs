@@ -55,5 +55,12 @@ namespace MeiliSearchExample.Controllers
             var res = await _searchService.AddDocuments(indexName);
             return Ok(res);
         }
+
+        [HttpPut("indexes/{indexName}/documents")]
+        public async Task<IActionResult> AddOrUpdateDocuments(string indexName)
+        {
+            var res = await _searchService.AddOrUpdateDocuments(indexName);
+            return Ok(res);
+        }
     }
 }
