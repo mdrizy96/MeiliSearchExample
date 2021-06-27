@@ -29,5 +29,9 @@ namespace SearchUtils.Services
         Task<UpdateStatus> DeleteDocumentsInBatch(string indexName, List<string> documentIds);
 
         Task<UpdateStatus> DeleteAllDocumentsInIndex(string indexName);
+
+        Task<IEnumerable<UpdateStatus>> GetAllUpdateStatus(string indexName);
+
+        Task<UpdateStatus> GetUpdateStatusById(string indexName, int updateStatusId);
     }
 }

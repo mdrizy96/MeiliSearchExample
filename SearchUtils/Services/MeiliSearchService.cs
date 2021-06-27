@@ -109,5 +109,19 @@ namespace SearchUtils.Services
             var res = await index.DeleteAllDocuments();
             return res;
         }
+
+        public async Task<IEnumerable<UpdateStatus>> GetAllUpdateStatus(string indexName)
+        {
+            var index = await _masterSearchClient.GetIndex(SearchConstants.BooksIndex);
+            var status = await index.GetAllUpdateStatus();
+            return status;
+        }
+
+        public async Task<UpdateStatus> GetUpdateStatusById(string indexName, int updateStatusId)
+        {
+            var index = await _masterSearchClient.GetIndex(SearchConstants.BooksIndex);
+            var individualStatus = await index.GetUpdateStatus(updateStatusId);
+            return individualStatus;
+        }
     }
 }
