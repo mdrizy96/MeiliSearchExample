@@ -23,6 +23,13 @@ namespace MeiliSearchExample.Controllers
             return Ok(res);
         }
 
+        [HttpGet("indexes/{indexName}")]
+        public async Task<IActionResult> GetSingleIndex(string indexName)
+        {
+            var res = await _searchService.GetIndex(indexName);
+            return Ok(res);
+        }
+
         [HttpPost("indexes")]
         public async Task<IActionResult> CreateIndex()
         {
