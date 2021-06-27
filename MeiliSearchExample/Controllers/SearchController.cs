@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SearchUtils.Constants;
 using SearchUtils.Services;
 using System.Threading.Tasks;
-using SearchUtils.Constants;
 
 namespace MeiliSearchExample.Controllers
 {
@@ -14,6 +14,13 @@ namespace MeiliSearchExample.Controllers
         public SearchController(IMeiliSearchService searchService)
         {
             _searchService = searchService;
+        }
+
+        [HttpGet("indexes")]
+        public async Task<IActionResult> GetAllIndexes()
+        {
+            var res = await _searchService.ListAllIndexes();
+            return Ok(res);
         }
 
         [HttpPost("indexes")]
