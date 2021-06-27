@@ -3,6 +3,7 @@ using Microsoft.Extensions.Options;
 using SearchUtils.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using SearchUtils.Models.Dtos;
 
 namespace SearchUtils.Services
 {
@@ -15,18 +16,15 @@ namespace SearchUtils.Services
             _searchClientOptions = searchClientOptions.Value;
         }
 
-        public async Task<Index> CreateIndex(string name)
+        public async Task<Index> CreateIndex(IndexForCreationDto indexForCreation)
         {
             var client = new MeilisearchClient(_searchClientOptions.InstanceUrl, _searchClientOptions.MasterKey);
-            var index = await client.CreateIndex(name);
 
-            return index;
-        }
-
-        public async Task<Index> CreateIndexWithPrimaryKey(string name, string primaryKey)
-        {
-            var client = new MeilisearchClient(_searchClientOptions.InstanceUrl, _searchClientOptions.MasterKey);
-            var index = await client.CreateIndex(name, primaryKey);
+            var index = indexForCreation.PrimaryKey switch
+            {
+                null => await client.CreateIndex(indexForCreation.Uid),
+                _ => await client.CreateIndex(indexForCreation.Uid, indexForCreation.PrimaryKey)
+            };
 
             return index;
         }

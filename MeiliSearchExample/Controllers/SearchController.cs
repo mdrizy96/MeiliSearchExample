@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SearchUtils.Constants;
+using SearchUtils.Models.Dtos;
 using SearchUtils.Services;
 using System.Threading.Tasks;
 
@@ -31,9 +32,13 @@ namespace MeiliSearchExample.Controllers
         }
 
         [HttpPost("indexes")]
-        public async Task<IActionResult> CreateIndex()
+        public async Task<IActionResult> CreateIndex([FromBody] IndexForCreationDto indexForCreation)
         {
-            var res = await _searchService.CreateIndex(SearchConstants.BooksIndex);
+            if (string.IsNullOrEmpty(indexForCreation.Uid))
+            {
+                indexForCreation.Uid = SearchConstants.BooksIndex;
+            }
+            var res = await _searchService.CreateIndex(indexForCreation);
             return Ok(res);
         }
     }

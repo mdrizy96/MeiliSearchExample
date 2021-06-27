@@ -1,14 +1,13 @@
 ﻿using System.Collections.Generic;
 using Meilisearch;
 using System.Threading.Tasks;
+using SearchUtils.Models.Dtos;
 
 namespace SearchUtils.Services
 {
     public interface IMeiliSearchService
     {
-        Task<Index> CreateIndex(string name);
-
-        Task<Index> CreateIndexWithPrimaryKey(string name, string primaryKey);
+        Task<Index> CreateIndex(IndexForCreationDto indexForCreation);
 
         Task<IEnumerable<Index>> ListAllIndexes();
 
