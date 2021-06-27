@@ -44,5 +44,13 @@ namespace SearchUtils.Services
 
             return index;
         }
+
+        public async Task<bool> DeleteIndex(string name)
+        {
+            var client = new MeilisearchClient(_searchClientOptions.InstanceUrl, _searchClientOptions.MasterKey);
+            var res = await client.DeleteIndex(name);
+
+            return res;
+        }
     }
 }

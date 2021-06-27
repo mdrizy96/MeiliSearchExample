@@ -41,5 +41,12 @@ namespace MeiliSearchExample.Controllers
             var res = await _searchService.CreateIndex(indexForCreation);
             return Ok(res);
         }
+
+        [HttpDelete("indexes/{indexName}")]
+        public async Task<IActionResult> DeleteSingleIndex(string indexName)
+        {
+            var res = await _searchService.DeleteIndex(indexName);
+            return Ok(res);
+        }
     }
 }

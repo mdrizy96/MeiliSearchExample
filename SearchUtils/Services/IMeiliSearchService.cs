@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using Meilisearch;
-using System.Threading.Tasks;
+﻿using Meilisearch;
 using SearchUtils.Models.Dtos;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace SearchUtils.Services
 {
@@ -12,5 +12,7 @@ namespace SearchUtils.Services
         Task<IEnumerable<Index>> ListAllIndexes();
 
         Task<Index> GetIndex(string name);
+
+        Task<bool> DeleteIndex(string name);
     }
 }
