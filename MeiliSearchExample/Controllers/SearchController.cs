@@ -98,5 +98,19 @@ namespace MeiliSearchExample.Controllers
             var res = await _searchService.DeleteAllDocumentsInIndex(indexName);
             return Ok(res);
         }
+
+        [HttpGet("indexes/{indexName}/updates")]
+        public async Task<IActionResult> GetAllUpdateStatus(string indexName)
+        {
+            var res = await _searchService.GetAllUpdateStatus(indexName);
+            return Ok(res);
+        }
+
+        [HttpGet("indexes/{indexName}/updates/{updateStatusId}")]
+        public async Task<IActionResult> GetStatusForOneUpdate(string indexName, int updateStatusId)
+        {
+            var res = await _searchService.GetUpdateStatusById(indexName, updateStatusId);
+            return Ok(res);
+        }
     }
 }
