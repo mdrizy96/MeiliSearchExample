@@ -1,14 +1,12 @@
+using MeiliSearchExample.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using SearchUtils.Models;
+using SearchUtils.Services;
 
 namespace MeiliSearchExample
 {
@@ -24,6 +22,9 @@ namespace MeiliSearchExample
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.ConfigureCors();
+            services.Configure<MeiliSearchClientOptions>(Configuration.GetSection("MeiliSearchClientOptions"));
+            services.AddScoped<IMeiliSearchService, MeiliSearchService>();
             services.AddControllers();
         }
 
@@ -34,6 +35,13 @@ namespace MeiliSearchExample
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors("CorsPolicy");
+
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = ForwardedHeaders.All
+            });
 
             app.UseRouting();
 
