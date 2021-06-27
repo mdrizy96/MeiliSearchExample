@@ -14,5 +14,9 @@ namespace SearchUtils.Services
         Task<Index> GetIndex(string name);
 
         Task<bool> DeleteIndex(string name);
+
+        Task<UpdateStatus> AddDocuments(string indexName);
+
+        Task<UpdateStatus> AddOrUpdateDocuments(string indexName);
     }
 }

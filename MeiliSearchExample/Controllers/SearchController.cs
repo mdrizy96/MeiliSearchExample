@@ -48,5 +48,12 @@ namespace MeiliSearchExample.Controllers
             var res = await _searchService.DeleteIndex(indexName);
             return Ok(res);
         }
+
+        [HttpPost("indexes/{indexName}/documents")]
+        public async Task<IActionResult> AddOrReplaceDocuments(string indexName)
+        {
+            var res = await _searchService.AddDocuments(indexName);
+            return Ok(res);
+        }
     }
 }
