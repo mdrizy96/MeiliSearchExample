@@ -33,5 +33,9 @@ namespace SearchUtils.Services
         Task<IEnumerable<UpdateStatus>> GetAllUpdateStatus(string indexName);
 
         Task<UpdateStatus> GetUpdateStatusById(string indexName, int updateStatusId);
+
+        Task<SearchResult<Book>> BasicSearch(string indexName, string searchQuery);
+
+        Task<SearchResult<Book>> CustomSearch(string indexName, string searchQuery);
     }
 }

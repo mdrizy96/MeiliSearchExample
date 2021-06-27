@@ -112,5 +112,19 @@ namespace MeiliSearchExample.Controllers
             var res = await _searchService.GetUpdateStatusById(indexName, updateStatusId);
             return Ok(res);
         }
+
+        [HttpGet("indexes/{indexName}/search")]
+        public async Task<IActionResult> BasicSearch(string indexName, [FromQuery] string searchQuery)
+        {
+            var res = await _searchService.BasicSearch(indexName, searchQuery);
+            return Ok(res);
+        }
+
+        [HttpGet("indexes/{indexName}/search/custom")]
+        public async Task<IActionResult> CustomSearch(string indexName, [FromQuery] string searchQuery)
+        {
+            var res = await _searchService.CustomSearch(indexName, searchQuery);
+            return Ok(res);
+        }
     }
 }

@@ -123,5 +123,19 @@ namespace SearchUtils.Services
             var individualStatus = await index.GetUpdateStatus(updateStatusId);
             return individualStatus;
         }
+
+        public async Task<SearchResult<Book>> BasicSearch(string indexName, string searchQuery)
+        {
+            var index = await _masterSearchClient.GetIndex(SearchConstants.BooksIndex);
+            var books = await index.Search<Book>(searchQuery);
+            return books;
+        }
+
+        public async Task<SearchResult<Book>> CustomSearch(string indexName, string searchQuery)
+        {
+            var index = await _masterSearchClient.GetIndex(SearchConstants.BooksIndex);
+            var books = await index.Search<Book>(searchQuery, new SearchQuery { Limit = 100 });
+            return books;
+        }
     }
 }
